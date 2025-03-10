@@ -37,7 +37,7 @@ public class MovieService {
         return repository.findById(id).map(MovieResponse::new).orElseThrow( () -> new NotFound("Movie with id" + id + "not found"));
     }
 
-    public List<MovieResponse> getAllBooks() {
+    public List<MovieResponse> getAllMovies() {
         return repository.findAll()
                 .map(MovieResponse::new)
                 .filter(Objects::nonNull)

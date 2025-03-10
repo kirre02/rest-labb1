@@ -4,4 +4,4 @@ import org.example.Entity.Movie;
 
 import java.util.List;
 
-public record ListMovie(List<Movie> data) {}
+public record ListMovie(List<MovieResponse> data) {}
