@@ -1,4 +1,7 @@
 package org.example.dto;
 
-public record ListMovie() {
-}
+import org.example.Entity.Movie;
+
+import java.util.List;
+
+public record ListMovie(List<Movie> data) {}
