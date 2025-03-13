@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.example.rules.ValidMovie;
 
-@ValidMovie(message = "Not the default message")
+@ValidMovie
 public record CreateMovie(@NotBlank @NotNull String title,
                           @NotBlank @NotNull String director,
                           @Positive(message = "must be positive") int duration,

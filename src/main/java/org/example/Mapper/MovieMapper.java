@@ -1,6 +1,6 @@
-package org.example.Mapper;
+package org.example.mapper;
 
-import org.example.Entity.Movie;
+import org.example.entity.Movie;
 import org.example.dto.CreateMovie;
 import org.example.dto.MovieResponse;
 

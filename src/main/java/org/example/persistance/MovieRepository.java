@@ -3,7 +3,7 @@ package org.example.persistance;
 import jakarta.data.repository.CrudRepository;
 import jakarta.data.repository.Find;
 import jakarta.data.repository.Repository;
-import org.example.Entity.Movie;
+import org.example.entity.Movie;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
     Optional<Movie> findByTitle(String title);
 
     @Find
-    Optional<Movie> findByDirector(String Director);
+    Optional<Movie> findByDirector(String director);
 
     @Find
     Optional<Movie> findByDuration(int duration);

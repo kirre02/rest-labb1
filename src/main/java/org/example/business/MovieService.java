@@ -2,7 +2,7 @@ package org.example.business;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.example.Entity.Movie;
+import org.example.entity.Movie;
 import org.example.dto.CreateMovie;
 import org.example.dto.MovieResponse;
 import org.example.dto.UpdateMovie;
@@ -12,7 +12,7 @@ import org.example.persistance.MovieRepository;
 import java.util.List;
 import java.util.Objects;
 
-import static org.example.Mapper.MovieMapper.*;
+import static org.example.mapper.MovieMapper.*;
 
 
 @ApplicationScoped
@@ -33,8 +33,13 @@ public class MovieService {
         return newMovie;
     }
 
+    public void deleteMovie(long id) {
+        var movie = repository.findById(id).orElseThrow(() -> new NotFound("Movie with id " + id + " not found"));
+        repository.delete(movie);
+    }
+
     public MovieResponse getMovieById(Long id) {
-        return repository.findById(id).map(MovieResponse::new).orElseThrow( () -> new NotFound("Movie with id" + id + "not found"));
+        return repository.findById(id).map(MovieResponse::new).orElseThrow( () -> new NotFound("Movie with id " + id + " not found"));
     }
 
     public List<MovieResponse> getAllMovies() {
@@ -45,7 +50,7 @@ public class MovieService {
     }
 
     public void updateMovie(Long id, UpdateMovie movie) {
-        var oldMovie = repository.findById(id).orElseThrow( () -> new NotFound("Movie with id" + id + "not found"));
+        var oldMovie = repository.findById(id).orElseThrow( () -> new NotFound("Movie with id " + id + " not found"));
         if (movie.title() != null) oldMovie.setTitle(movie.title());
         if (movie.director() != null) oldMovie.setDirector(movie.director());
         if (movie.duration() != 0) oldMovie.setDuration(movie.duration());

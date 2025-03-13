@@ -1,6 +1,6 @@
 package org.example.dto;
 
-import org.example.Entity.Movie;
+import org.example.entity.Movie;
 
 public record MovieResponse(Long id, String title, String director, int duration, int year) {
     public MovieResponse(Movie movie) {

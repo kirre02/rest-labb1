@@ -2,7 +2,6 @@ package org.example.rules;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import jakarta.ws.rs.ConstrainedTo;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
