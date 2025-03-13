@@ -39,7 +39,7 @@
         //"http://localhost:8080/api/movies"
         @GET
         @Produces(MediaType.APPLICATION_JSON)
-        public ListMovie getBooks() {
+        public ListMovie getMovies() {
             return new ListMovie(movieService.getAllMovies());
         }
 
@@ -47,20 +47,20 @@
         @GET
         @Path("{id}")
         @Produces(MediaType.APPLICATION_JSON)
-        public MovieResponse getOneBook(@PathParam("id") Long id) {
+        public MovieResponse getOneMovie(@PathParam("id") Long id) {
             return movieService.getMovieById(id);
         }
 
         @DELETE
         @Path("{id}")
-        public Response deleteOneBook(@PathParam("id") Long id) {
+        public Response deleteOneMovie(@PathParam("id") Long id) {
             movieService.deleteMovie(id);
             return Response.noContent().build();
         }
 
         @POST
         @Consumes(MediaType.APPLICATION_JSON)
-        public Response createNewBook(@Valid @NotNull CreateMovie movie) {
+        public Response createNewMovie(@Valid @NotNull CreateMovie movie) {
             if( movie == null)
                 return Response.status(Response.Status.BAD_REQUEST)
                         .entity("Book cannot be null").build();
@@ -77,7 +77,7 @@
         @PATCH
         @Path("{id}")
         @Consumes(MediaType.APPLICATION_JSON)
-        public Response updateBookFieldByField(@Valid UpdateMovie movie, @PathParam("id") Long id) {
+        public Response updateMovieFieldByField(@Valid UpdateMovie movie, @PathParam("id") Long id) {
             movieService.updateMovie(id, movie);
             return Response.noContent().build();
         }
