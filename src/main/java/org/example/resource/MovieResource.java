@@ -29,13 +29,6 @@
 
         public MovieResource() {}
 
-
-        @GET
-        @Path("test")
-        public Response testApi() {
-            return Response.ok("API is working!").build();
-        }
-
         //"http://localhost:8080/api/movies"
         @GET
         @Produces(MediaType.APPLICATION_JSON)

@@ -6,7 +6,7 @@ import org.example.entity.Movie;
 import org.example.dto.CreateMovie;
 import org.example.dto.MovieResponse;
 import org.example.dto.UpdateMovie;
-import org.example.exceptions.NotFound;
+import org.example.exceptions.NotFoundException;
 import org.example.persistance.MovieRepository;
 
 import java.util.List;
@@ -34,12 +34,12 @@ public class MovieService {
     }
 
     public void deleteMovie(long id) {
-        var movie = repository.findById(id).orElseThrow(() -> new NotFound("Movie with id " + id + " not found"));
+        var movie = repository.findById(id).orElseThrow(() -> new NotFoundException("Movie with id " + id + " not found"));
         repository.delete(movie);
     }
 
     public MovieResponse getMovieById(Long id) {
-        return repository.findById(id).map(MovieResponse::new).orElseThrow( () -> new NotFound("Movie with id " + id + " not found"));
+        return repository.findById(id).map(MovieResponse::new).orElseThrow( () -> new NotFoundException("Movie with id " + id + " not found"));
     }
 
     public List<MovieResponse> getAllMovies() {
@@ -50,7 +50,7 @@ public class MovieService {
     }
 
     public void updateMovie(Long id, UpdateMovie movie) {
-        var oldMovie = repository.findById(id).orElseThrow( () -> new NotFound("Movie with id " + id + " not found"));
+        var oldMovie = repository.findById(id).orElseThrow( () -> new NotFoundException("Movie with id " + id + " not found"));
         if (movie.title() != null) oldMovie.setTitle(movie.title());
         if (movie.director() != null) oldMovie.setDirector(movie.director());
         if (movie.duration() != 0) oldMovie.setDuration(movie.duration());
