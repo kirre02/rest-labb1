@@ -4,13 +4,13 @@ import org.example.dto.CreateMovie;
 import org.example.dto.MovieResponse;
 import org.example.dto.UpdateMovie;
 import org.example.entity.Movie;
-import org.example.exceptions.NotFound;
+import org.example.exceptions.NotFoundException;
 import org.example.persistance.MovieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,19 +18,20 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+
+@ExtendWith(MockitoExtension.class)
 class MovieServiceTest {
 
     @Mock
     private MovieRepository movieRepository;  // Mocked repository
 
-    @InjectMocks
+
     private MovieService movieService;  // Inject mocks
 
     private Movie movie;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); // Initialize mocks manually
         movieService = new MovieService(movieRepository);
 
         movie = new Movie();
@@ -51,19 +52,15 @@ class MovieServiceTest {
         createMovie.setDuration(148);
         createMovie.setYear(2010);
 
-        // Mock the insert() method
         when(movieRepository.insert(any(Movie.class))).thenReturn(createMovie);
 
-        // Create DTO for creating a new movie
         CreateMovie createdMovieDTO = new CreateMovie("Inception", "Christopher Nolan", 148, 2010);
 
-        // Call the service method
         Movie createdMovie = movieService.createMovie(createdMovieDTO);
 
-        // Verify the results
         assertNotNull(createdMovie);
         assertEquals("Inception", createdMovie.getTitle());
-        verify(movieRepository, times(1)).insert(any(Movie.class));  // Verify that insert was called once
+        verify(movieRepository, times(1)).insert(any(Movie.class));
     }
 
     @Test
@@ -80,7 +77,7 @@ class MovieServiceTest {
     void testDeleteMovie_NotFound() {
         when(movieRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Exception exception = assertThrows(NotFound.class, () -> movieService.deleteMovie(1L));
+        Exception exception = assertThrows(NotFoundException.class, () -> movieService.deleteMovie(1L));
 
         assertEquals("Movie with id 1 not found", exception.getMessage());
     }
